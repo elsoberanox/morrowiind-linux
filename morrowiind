@@ -1,0 +1,251 @@
+
+
+#!/bin/bash
+MY_PATH="`dirname \"$0\"`"
+cd "$MY_PATH"
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+BACKTITLE="Creado por: Elsoberanox - https://www.youtube.com/c/ElsoberanoxLinux"
+TITLE="www.juegosenlinux.site"
+MENU="Morrowind - Elsoberanox"
+
+OPTIONS=(1 "Instalar Morrowind"
+         2 "Desinstalar"
+         3 "Ver mas ports"
+         4 "Salir")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+#!/bin/bash
+MY_PATH="`dirname \"$0\"`"
+cd "$MY_PATH"
+
+dialog=/usr/bin/dialog
+badown=/usr/bin/badown
+p7zip=/usr/bin/7z
+wineson=/opt/wineson/wine
+wget=/usr/bin/wget
+
+#dependencias
+if  [ -f $dialog ]
+then
+   clear
+else
+  clear && sudo apt install dialog 
+   
+fi 
+
+
+if  [ -f $badown ]
+then
+   clear
+else
+  clear && wget https://archive.org/download/badown/badown && sudo chmod +x badown && sudo mv badown /usr/bin/  
+   
+fi 
+
+if  [ -f $p7zip ]
+then
+   clear
+else
+  clear && sudo apt install p7zip-full p7zip-rar 
+   
+fi 
+
+
+
+if [ -d /opt/wineson ];
+then
+clear
+else
+clear && wget https://archive.org/download/wineson.7z_202110/wineson.7z && 7z x wineson.7z && sudo rm -R wineson.7z && sudo mv wineson /opt/
+fi
+
+
+
+if  [ -f $wget ]
+then
+   clear
+else
+  clear && sudo apt install wget 
+   
+fi
+
+
+if [ -d $HOME/Juegos/Morrowind ];
+then
+clear
+else
+mkdir $HOME/Juegos/
+mkdir $HOME/Juegos/Morrowind
+fi
+
+#dependencias
+
+#descarga juego
+badown https://www.mediafire.com/file/thd6hx02tklxe60/morrowind.7z/file
+7z x morrowind.7z
+sudo rm -R morrowind.7z
+
+#instalación de juego con wine
+
+export WINEPREFIX=$HOME/Juegos/Morrowind
+export PATH=/opt/winlol/bin/:/usr/bin/
+clear 
+sleep 10s
+wine morrowind/setup.exe
+#binario del juego
+echo -e "export WINEPREFIX=$HOME/Juegos/Morrowind\nexport PATH=/opt/winlol/bin/:/usr/bin/\ncd $HOME/Juegos/Morrowind/drive_c/Program\ Files\ \(x86\)/The\ Elder\ Scrolls\ III\ Morrowind\ GOTY/\n wine Morrowind\ Launcher.exe" >> morrowind-bin
+sudo chmod +x morrowind-bin
+sudo mv morrowind-bin /usr/bin/
+#acceso al juego
+wget https://archive.org/download/morrowind_202110/morrowind.png
+sudo mv morrowind.png /opt/
+echo -e "[Desktop Entry]\n Version=1.0\n Type=Application\n Name=Morrowind\n Comment=Morrowind-linux\n Icon=/opt/morrowind.png\n Exec=morrowind-bin\n Categories=Game;" >> Morrowind.desktop
+sudo chmod +x Morrowind.desktop
+sudo mv Morrowind.desktop $HOME/.local/share/applications
+sudo rm -R morrowind
+xdg-desktop-menu forceupdate
+
+            ;;
+        2)
+sudo rm -R /usr/bin/morrowind-bin
+sudo rm -R /opt/morrowind.png
+sudo rm -R $HOME/Juegos/Morrowind/
+sudo rm -R $HOME/.local/share/applications/Morrowind.desktop
+xdg-desktop-menu forceupdate
+
+            ;;
+        3)
+            xdg-open https://www.juegosenlinux.site/
+            ;;
+            
+                    3)
+            exit
+            ;;
+esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+MY_PATH="`dirname \"$0\"`"
+cd "$MY_PATH"
+
+dialog=/usr/bin/dialog
+badown=/usr/bin/badown
+p7zip=/usr/bin/7z
+wineson=/opt/wineson/wine
+wget=/usr/bin/wget
+
+#dependencias
+if  [ -f $dialog ]
+then
+   clear
+else
+  clear && sudo apt install dialog 
+   
+fi 
+
+
+if  [ -f $badown ]
+then
+   clear
+else
+  clear && wget https://archive.org/download/badown/badown && sudo chmod +x badown && sudo mv badown /usr/bin/  
+   
+fi 
+
+if  [ -f $p7zip ]
+then
+   clear
+else
+  clear && sudo apt install p7zip-full p7zip-rar 
+   
+fi 
+
+
+
+if [ -d /opt/wineson ];
+then
+clear
+else
+clear && wget https://archive.org/download/wineson.7z_202110/wineson.7z && 7z x wineson.7z && sudo rm -R wineson.7z && sudo mv wineson /opt/
+fi
+
+
+
+if  [ -f $wget ]
+then
+   clear
+else
+  clear && sudo apt install wget 
+   
+fi
+
+
+if [ -d $HOME/Juegos/Morrowind ];
+then
+clear
+else
+mkdir $HOME/Juegos/
+mkdir $HOME/Juegos/Morrowind
+fi
+
+#dependencias
+
+#descarga juego
+badown https://www.mediafire.com/file/thd6hx02tklxe60/morrowind.7z/file
+7z x morrowind.7z
+sudo rm -R morrowind.7z
+
+#instalación de juego con wine
+
+export WINEPREFIX=$HOME/Juegos/Morrowind
+export PATH=/opt/winlol/bin/:/usr/bin/
+clear 
+sleep 10s
+wine morrowind/setup.exe
+#binario del juego
+echo -e "export WINEPREFIX=$HOME/Juegos/Morrowind\nexport PATH=/opt/winlol/bin/:/usr/bin/\ncd $HOME/Juegos/Morrowind/drive_c/Program\ Files\ \(x86\)/The\ Elder\ Scrolls\ III\ Morrowind\ GOTY/\n wine Morrowind\ Launcher.exe" >> morrowind-bin
+sudo chmod +x morrowind-bin
+sudo mv morrowind-bin /usr/bin/
+#acceso al juego
+wget https://archive.org/download/morrowind_202110/morrowind.png
+sudo mv morrowind.png /opt/
+echo -e "[Desktop Entry]\n Version=1.0\n Type=Application\n Name=Morrowind\n Comment=Morrowind-linux\n Icon=/opt/morrowind.png\n Exec=morrowind-bin\n Categories=Game;" >> Morrowind.desktop
+sudo chmod +x Morrowind.desktop
+sudo mv Morrowind.desktop $HOME/.local/share/applications
+sudo rm -R morrowind
+xdg-desktop-menu forceupdate
